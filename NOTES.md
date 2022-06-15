@@ -73,5 +73,22 @@ fixed __eq__ added test for coverage
 
 🔴 🟢 ♻️ ♻️ ♻️ ♻️ ♻️ ♻️
 
+## 2. Game Over - Step on a bomb on 1;1
++-+-+-+
+| | | |
++-+-+-+
+| |X| |
++-+-+-+
+| | | |
++-+-+-+
+[Sandbox 3x3] BOOM! – Game Over.
+
+- implement step and lose:
+  - step (x,y) as input: 
+    - validate x and y are onboard
+  - if square value is "x" 
+    - draw board and print lost message
+    - exit
+
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

@@ -115,3 +115,25 @@ def test_eqFalse2():
     mines = [(1, 1)]
     gameBoard = Board(size, mines)
     assert gameBoard != 1
+
+
+## 2 step and lose
+
+size = 3
+mines = [(1, 1)]
+gameBoard = Board(size, mines)
+
+
+def test_stepOffBoard():
+    assert gameBoard.step((1, 4)) == False
+
+
+def test_stepOnBomb():
+    assert gameBoard.step((1, 1)) == True
+
+
+def test_stepOnBombOutput():
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] BOOM! - Game Over."
+    )

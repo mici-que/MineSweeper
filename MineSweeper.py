@@ -65,6 +65,5 @@ class Board:
             and list(self.boardArray) == list(other.boardArray)
         )
 
-
-thisGame = Board(3, [(1, 1)])
-print(thisGame.drawBoard())
+    def step(self, square):
+        pass
