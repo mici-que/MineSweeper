@@ -57,7 +57,9 @@ initial output will always be, as all squares are covered:
 
 - don't test for internal representation of board, only the output
 
-🔴 🟢
+- changed function to validate mines - creating list of coordinate tuples for board slow for big boards
+
+🔴 🟢 ♻️
 
 
 
