@@ -57,7 +57,7 @@ initial output will always be, as all squares are covered:
 
 - don't test for internal representation of board, only the output
 
-🔴
+🔴 🟢
 
 
 
