@@ -71,7 +71,7 @@ fix __new__
 change naming convention on sonarcloud
 fixed __eq__ added test for coverage
 
-🔴 🟢 ♻️ ♻️ ♻️ ♻️ ♻️
+🔴 🟢 ♻️ ♻️ ♻️ ♻️ ♻️ ♻️
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

@@ -1,4 +1,4 @@
-class board:
+class Board:
     def __init__(self, size, mines):
         self.size = size
         self.mines = mines
@@ -53,12 +53,18 @@ class board:
 
     def __eq__(self, other):
         return (
-            int(self.size) == int(other.size)
+            isinstance(self, object)
+            and isinstance(other, object)
+            and "size" in dir(other)
+            and "mines" in dir(other)
+            and "status" in dir(other)
+            and "boardArray" in dir(other)
+            and int(self.size) == int(other.size)
             and list(self.mines) == list(other.mines)
             and str(self.status) == str(other.status)
             and list(self.boardArray) == list(other.boardArray)
         )
 
 
-thisGame = board(3, [(1, 1)])
+thisGame = Board(3, [(1, 1)])
 print(thisGame.drawBoard())
