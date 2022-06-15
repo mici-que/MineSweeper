@@ -92,7 +92,7 @@ fixed __eq__ added test for coverage
 ( - exit ) => introduce gameplay in next cycle
 
 
-🔴 🟢
+🔴 🟢 ♻️
 
 
 ***

@@ -125,6 +125,10 @@ def test_stepOffBoard():
     assert gameBoard.step((1, 4)) == False
 
 
+def test_stepNoInput():
+    assert gameBoard.step(()) == False
+
+
 def test_stepOnBomb():
     assert gameBoard.step((1, 1)) == True
 

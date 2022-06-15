@@ -19,9 +19,10 @@ class Board:
             return False
         # check if all items in mines are actual coordinates on the board
         obj = super().__new__(cls)
-        if obj.validateMines(mines, size):
-            return obj
-        return False
+        for mine in mines:
+            if not obj.validCoordinates(mine, size):
+                return False
+        return obj
 
     def drawBoard(self):
         separator = "+" + "-+" * self.size + "\n"
@@ -38,17 +39,19 @@ class Board:
         boardString += self.status
         return boardString
 
-    def validateMines(self, mines, size):
-        for mine in mines:
-            if (
-                not isinstance(mine, tuple)
-                or len(mine) != 2
-                or not isinstance(mine[0], int)
-                or not isinstance(mine[1], int)
-                or not (0 <= mine[0] < size)
-                or not (0 <= mine[1] < size)
-            ):
-                return False
+    def validCoordinates(self, coordinates, size=None):
+        if size == None:
+            size = self.size
+        if (
+            not isinstance(coordinates, tuple)
+            or len(coordinates) != 2
+            or not isinstance(coordinates[0], int)
+            or not isinstance(coordinates[1], int)
+            or not (0 <= coordinates[0] < size)
+            or not (0 <= coordinates[1] < size)
+        ):
+
+            return False
         return True
 
     def __eq__(self, other):
@@ -66,9 +69,10 @@ class Board:
         )
 
     def step(self, square=None):
-        if not len([square]) == 1:
+
+        if len([square]) != 1:
             return False
-        if not self.validateMines([square], self.size):
+        if not self.validCoordinates(square):
             return False
         if self.boardArray[square[0]][square[1]] == "x":
             self.boardArray[square[0]][square[1]] = "X"
@@ -80,7 +84,6 @@ class Board:
                 + "] BOOM! - Game Over."
             )
             return True
-        pass
 
 
 thisBoard = Board(3, [(1, 1)])
