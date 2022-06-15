@@ -69,3 +69,25 @@ def test_scenario1_drawBoard():
         (gameBoard.drawBoard())
         == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] Game created"
     )
+
+
+## additional test for class behaviour
+
+
+def test_eq():
+    class testClass:
+        size = 3
+        mines = [(1, 1)]
+        status = "[Sandbox 3x3] Game created"
+        boardArray = [
+            [" " if (x, y) not in [(1, 1)] else "x" for x in range(3)] for y in range(3)
+        ]
+
+    testObj = testClass()
+    """test __eq__()"""
+    size = 3
+    mines = [(1, 1)]
+    gameBoard = board(size, mines)
+    print(gameBoard.status)
+    print(testObj.status)
+    assert gameBoard == testObj

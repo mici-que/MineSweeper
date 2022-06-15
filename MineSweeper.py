@@ -52,4 +52,13 @@ class board:
         return True
 
     def __eq__(self, other):
-        return self == other
+        return (
+            int(self.size) == int(other.size)
+            and list(self.mines) == list(other.mines)
+            and str(self.status) == str(other.status)
+            and list(self.boardArray) == list(other.boardArray)
+        )
+
+
+thisGame = board(3, [(1, 1)])
+print(thisGame.drawBoard())

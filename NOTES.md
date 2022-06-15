@@ -69,8 +69,9 @@ initial output will always be, as all squares are covered:
 check __eq__ 
 fix __new__
 change naming convention on sonarcloud
+fixed __eq__ added test for coverage
 
-🔴 🟢 ♻️ ♻️ ♻️
+🔴 🟢 ♻️ ♻️ ♻️ ♻️ ♻️
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿
