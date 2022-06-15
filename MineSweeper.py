@@ -18,8 +18,9 @@ class board:
         if len(mines) >= (size * size) - 1:
             return False
         # check if all items in mines are actual coordinates on the board
-        if cls.validateMines(mines, size):
-            return object.__new__(board)
+        obj = super().__new__(cls)
+        if obj.validateMines(mines, size):
+            return obj
         return False
 
     def drawBoard(self):
@@ -37,7 +38,7 @@ class board:
         boardString += self.status
         return boardString
 
-    def validateMines(mines, size):
+    def validateMines(self, mines, size):
         for mine in mines:
             if (
                 not isinstance(mine, tuple)
