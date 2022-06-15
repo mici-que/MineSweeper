@@ -18,7 +18,7 @@ class board:
         if len(mines) >= (size * size) - 1:
             return False
         # check if all items in mines are actual coordinates on the board
-        if cls.validateMines(cls, mines, size):
+        if cls.validateMines(mines, size):
             return object.__new__(board)
         return False
 
@@ -37,7 +37,7 @@ class board:
         boardString += self.status
         return boardString
 
-    def validateMines(self, mines, size):
+    def validateMines(mines, size):
         for mine in mines:
             if (
                 not isinstance(mine, tuple)
