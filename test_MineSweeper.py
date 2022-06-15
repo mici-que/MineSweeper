@@ -1,45 +1,50 @@
-import MineSweeper
+from MineSweeper import board
 
 ### 1. Game board creation
 
 # no input array provided
 def test_scenario1_noInput():
     """no input provided to initialize the board, return False"""
-    assert (MineSweeper.initBoard()) == False
+    gameBoard = board()
+    assert (board(gameBoard)) == False
 
 
 def test_scenario1_InputDataTypeFail():
-    size = "3"
-    mineCoordinates = [(1, 1)]
     """board size is string, fail"""
-    assert (MineSweeper.initBoard(size, mineCoordinates)) == False
+    size = "3"
+    mines = [(1, 1)]
+    gameBoard = board(size, mines)
+    assert (board(gameBoard)) == False
 
 
 def test_scenario1_noMines():
-    """mineCoordinates empty, fail"""
+    """mines empty, fail"""
     size = 3
-    mineCoordinates = [()]
-    assert (MineSweeper.initBoard(size, mineCoordinates)) == False
+    mines = [()]
+    gameBoard = board(size, mines)
+    assert (board(gameBoard)) == False
 
 
 def test_scenario1_CoordinatesFail():
-    """mineCoordinates not coordinates, fail"""
+    """mines not coordinates, fail"""
     size = 3
-    mineCoordinates = [(1, 2, 3)]
-    assert (MineSweeper.initBoard(size, mineCoordinates)) == False
+    mines = [(1, 2, 3)]
+    gameBoard = board(size, mines)
+    assert (board(gameBoard)) == False
 
 
 def test_scenario1_MineOffboard():
-    """mineCoordinates are off the board, fail"""
+    """mines are off the board, fail"""
     size = 3
-    mineCoordinates = [(1, 3)]
-    assert (MineSweeper.initBoard(size, mineCoordinates)) == False
+    mines = [(1, 3)]
+    gameBoard = board(size, mines)
+    assert (board(gameBoard)) == False
 
 
 def test_scenario1_TooManyMines():
     """too many mines, fail"""
     size = 3
-    mineCoordinates = [
+    mines = [
         (0, 0),
         (0, 1),
         (0, 2),
@@ -50,22 +55,17 @@ def test_scenario1_TooManyMines():
         (2, 1),
         (2, 1),
     ]
-    assert (MineSweeper.initBoard(size, mineCoordinates)) == False
+    gameBoard = board(size, mines)
+    assert (board(gameBoard)) == False
 
 
 def test_scenario1_drawBoard():
     """initialized board (3,[[1,1]]), expect initial output as [[" ", " ", " "],[" ", " ", " "],[" ", " ", " "]]"""
     size = 3
-    mineCoordinates = [(1, 1)]
-    board = MineSweeper.initBoard(size, mineCoordinates)
+    mines = [(1, 1)]
+    gameBoard = board(size, mines)
+    print(gameBoard)
     assert (
-        MineSweeper.drawBoard(board)
-    ) == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n"
-
-
-def test_scenario1_drawBoardFailedInit():
-    """initialized board (3,[()]), expect initial output as False"""
-    size = 3
-    mineCoordinates = [()]
-    board = MineSweeper.initBoard(size, mineCoordinates)
-    assert (MineSweeper.drawBoard(board)) == False
+        (gameBoard.drawBoard())
+        == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] Game created"
+    )

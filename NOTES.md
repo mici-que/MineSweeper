@@ -54,6 +54,7 @@ initial output will always be, as all squares are covered:
 +-+-+-+
 | | | |
 +-+-+-+
+[Sandbox 3x3] Game created
 
 - don't test for internal representation of board, only the output
 
@@ -61,8 +62,11 @@ initial output will always be, as all squares are covered:
 
 🔴 🟢 ♻️
 
+- back to RED, need to adjust tests:
+  - missed status line
+  - use board as class
 
-
+🔴 
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

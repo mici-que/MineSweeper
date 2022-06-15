@@ -1,3 +1,11 @@
+class board:
+    def __init__(self, size=None, mines=None):
+        pass
+
+    def drawBoard(self):
+        pass
+
+
 def validateMines(mines, size):
     for mine in mines:
         if (
