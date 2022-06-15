@@ -66,7 +66,7 @@ initial output will always be, as all squares are covered:
   - missed status line
   - use board as class
 
-🔴 
+🔴 🟢
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

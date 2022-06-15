@@ -64,7 +64,7 @@ def test_scenario1_drawBoard():
     size = 3
     mines = [(1, 1)]
     gameBoard = board(size, mines)
-    print(gameBoard)
+
     assert (
         (gameBoard.drawBoard())
         == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] Game created"
