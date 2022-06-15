@@ -88,9 +88,6 @@ def test_eqTrue():
     size = 3
     mines = [(1, 1)]
     gameBoard = Board(size, mines)
-    print(dir(testObj))
-    if "size" in vars(gameBoard):
-        print("found")
     assert gameBoard == testObj
 
 
@@ -135,5 +132,5 @@ def test_stepOnBomb():
 def test_stepOnBombOutput():
     assert (
         gameBoard.drawBoard()
-        == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] BOOM! - Game Over."
+        == "+-+-+-+\n| | | |\n+-+-+-+\n| |X| |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] BOOM! - Game Over."
     )

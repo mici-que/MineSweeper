@@ -65,5 +65,24 @@ class Board:
             and list(self.boardArray) == list(other.boardArray)
         )
 
-    def step(self, square):
+    def step(self, square=None):
+        if not len([square]) == 1:
+            return False
+        if not self.validateMines([square], self.size):
+            return False
+        if self.boardArray[square[0]][square[1]] == "x":
+            self.boardArray[square[0]][square[1]] = "X"
+            self.status = (
+                "[Sandbox "
+                + str(self.size)
+                + "x"
+                + str(self.size)
+                + "] BOOM! - Game Over."
+            )
+            return True
         pass
+
+
+thisBoard = Board(3, [(1, 1)])
+thisBoard.step((1, 1))
+print(thisBoard.drawBoard())

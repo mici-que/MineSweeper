@@ -88,7 +88,12 @@ fixed __eq__ added test for coverage
     - validate x and y are onboard
   - if square value is "x" 
     - draw board and print lost message
-    - exit
+
+( - exit ) => introduce gameplay in next cycle
+
+
+🔴 🟢
+
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿
