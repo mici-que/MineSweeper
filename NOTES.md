@@ -65,6 +65,10 @@ initial output will always be, as all squares are covered:
 - back to RED, need to adjust tests:
   - missed status line
   - use board as class
+- codesmell and bug on sonarcloud
+check __eq__ 
+fix __new__
+change naming convention on sonarcloud
 
 🔴 🟢
 

@@ -8,7 +8,7 @@ class board:
             for y in range(size)
         ]
 
-    def __new__(self, size=None, mines=None):
+    def __new__(board, size=None, mines=None):
         # basic input check check
         if not isinstance(size, int) or size <= 1 or not isinstance(mines, list):
             return False
@@ -18,7 +18,7 @@ class board:
         if len(mines) >= (size * size) - 1:
             return False
         # check if all items in mines are actual coordinates on the board
-        if self.validateMines(self, mines, size):
+        if board.validateMines(board, mines, size):
             return object.__new__(board)
         return False
 
@@ -49,3 +49,6 @@ class board:
             ):
                 return False
         return True
+
+    def __eq__(self):
+        return False
