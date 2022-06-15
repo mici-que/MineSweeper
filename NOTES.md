@@ -70,7 +70,7 @@ check __eq__
 fix __new__
 change naming convention on sonarcloud
 
-🔴 🟢
+🔴 🟢 ♻️ ♻️
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿
