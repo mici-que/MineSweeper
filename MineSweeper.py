@@ -73,19 +73,25 @@ class Board:
             and list(self.boardArray) == list(other.boardArray)
         )
 
-    def step(self, square=None):
-        if len([square]) != 1 or not self.validCoordinates(square):
-            return False
-        x = square[1]
-        y = square[0]
-        if self.boardArray[x][y] == "x":
-            self.boardArray[x][y] = "X"
-            self.setStatus("BOOM! - Game Over.")
-            return True
-        if self.boardArray[x][y] == " ":
-            self.boardArray[x][y] = self.calculateNeighbours((x, y))
-            self.setStatus(self.boardArray[x][y] + " bombs around your square.")
-            return True
+    def step(self, square=None, flag=False):
+        if len([square]) == 1 and self.validCoordinates(square):
+            x = square[1]
+            y = square[0]
+            squareContent = self.boardArray[x][y]
+            if squareContent in [" ", "x"]:
+                stepsDict = {
+                    ("x", False): ('"X"', '"BOOM! - Game Over."'),
+                    ("x", True): ('"*"', '"Square flagged as bomb."'),
+                    (" ", True): ('"*"', '"Square flagged as bomb."'),
+                    (" ", False): (
+                        "self.calculateNeighbours((x, y))",
+                        'self.calculateNeighbours((x, y)) + " bombs around your square."',
+                    ),
+                }
+                self.boardArray[x][y] = eval(stepsDict[(squareContent, flag)][0])
+                self.setStatus(eval(stepsDict[(squareContent, flag)][1]))
+                return True
+        return False
 
     def calculateNeighbours(self, square):
         mines = 0
@@ -96,23 +102,18 @@ class Board:
         return str(mines)
 
     def flag(self, square):
-        if len([square]) != 1 or not self.validCoordinates(square):
-            return False
-        x = square[1]
-        y = square[0]
-        if self.boardArray[x][y] in ["x", " "]:
-            self.boardArray[x][y] = "*"
-            self.setStatus("Square flagged as bomb.")
+        self.step(square, flag=True)
 
 
 size = 3
 mines = [(0, 1), (1, 1), (1, 0)]
 gameBoard = Board(size, mines)
+print(gameBoard.drawBoard())
 gameBoard.step((0, 0))
+print(gameBoard.drawBoard())
 gameBoard.flag((0, 1))
+print(gameBoard.drawBoard())
 gameBoard.flag((1, 1))
+print(gameBoard.drawBoard())
 gameBoard.flag((1, 0))
 print(gameBoard.drawBoard())
-print(
-    "+-+-+-+\n| | | |\n+-+-+-+\n|*|*| |\n+-+-+-+\n|3|*| |\n+-+-+-+\n[Sandbox 3x3] Square flagged as bomb."
-)
