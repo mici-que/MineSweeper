@@ -68,12 +68,12 @@ class Board:
         )
 
     def step(self, square=None):
-        if len([square]) != 1:
+        if len([square]) != 1 or not self.validCoordinates(square):
             return False
-        if not self.validCoordinates(square):
-            return False
-        if self.boardArray[square[1]][square[0]] == "x":
-            self.boardArray[square[1]][square[0]] = "X"
+        x = square[1]
+        y = square[0]
+        if self.boardArray[x][y] == "x":
+            self.boardArray[x][y] = "X"
             self.status = (
                 "[Sandbox "
                 + str(self.size)
@@ -82,3 +82,30 @@ class Board:
                 + "] BOOM! - Game Over."
             )
             return True
+        if self.boardArray[x][y] == " ":
+            self.boardArray[x][y] = self.calculateNeighbours((x, y))
+            self.status = (
+                "[Sandbox "
+                + str(self.size)
+                + "x"
+                + str(self.size)
+                + "] "
+                + self.boardArray[x][y]
+                + " bombs around your square."
+            )
+            return True
+
+    def calculateNeighbours(self, square):
+        mines = 0
+        for x in range(square[0] - 1, square[0] + 2):
+            for y in range(square[1] - 1, square[1] + 2):
+                if self.validCoordinates((x, y)) and self.boardArray[x][y] == "x":
+                    mines += 1
+        return str(mines)
+
+
+size = 3
+mines = [(1, 2)]
+gameBoard = Board(size, mines)
+gameBoard.step((0, 0))
+print(gameBoard.drawBoard())

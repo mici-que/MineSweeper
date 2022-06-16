@@ -140,8 +140,6 @@ def test_stepOnBombOutput():
 
 
 ## 3 step and calculate
-
-
 def test_stepAndCalc():
     """it's a valid step, return True"""
     size = 3
@@ -173,8 +171,6 @@ def test_stepOnBombInstead():
         == "+-+-+-+\n| | | |\n+-+-+-+\n|X| | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] BOOM! - Game Over."
     )
 
-
-test_stepOnBombInstead()
 
 # additional test to improve coverage, test when step input tuple is faulty
 def test_stepWrongInput():
