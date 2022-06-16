@@ -2,6 +2,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
 # added sonarcloud, need to fetch information after repo is initiated
+# pytest --mccabe -m mccabe -removed
 
 name: Lint and Test
 
@@ -39,7 +40,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --cov --cov-report=xml --cov-config=tox.ini --cov-branch
-        pytest --mccabe -m mccabe
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@master
       env:
