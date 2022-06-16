@@ -231,8 +231,8 @@ def test_clearedAllCells():
     )
 
 
-### 5. Game Victory – After I cleared the all the squares [2;0 + 2;1 + 2;2 + 1;2 + 1;2]
-def test_clearedAllCells():
+### 6. one-click Victory
+def test_clearedAllCellsInOneRun():
     """one-click victory"""
     size = 3
     mines = [(2, 2)]
@@ -242,3 +242,20 @@ def test_clearedAllCells():
         gameBoard.drawBoard()
         == "+-+-+-+\n|0|1| |\n+-+-+-+\n|0|1|1|\n+-+-+-+\n|0|0|0|\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
     )
+
+
+### for additional coverage
+
+
+def test_emptyStatus():
+    size = 3
+    mines = [(2, 2)]
+    gameBoard = Board(size, mines)
+    assert gameBoard.setStatus() == False
+
+
+def test_flagInvalid():
+    size = 3
+    mines = [(2, 2)]
+    gameBoard = Board(size, mines)
+    assert gameBoard.flag((1, 4)) == False

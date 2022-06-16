@@ -1,4 +1,11 @@
 class Board:
+    statusMessages = {
+        "lose": "BOOM! - Game Over.",
+        "flag": "Square flagged as bomb.",
+        "win": "the land is cleared! GOOD JOB!",
+        "uncover": "bombs around your square.",
+    }
+
     def __init__(self, size, mines):
         self.stepCount = 0
         self.size = size
@@ -38,9 +45,11 @@ class Board:
             and list(self.boardArray) == list(other.boardArray)
         )
 
-    def setStatus(self, message):
+    def setStatus(self, message=None):
         if isinstance(message, str):
-            self.status = "[Sandbox " + str(size) + "x" + str(size) + "] " + message
+            self.status = (
+                "[Sandbox " + str(self.size) + "x" + str(self.size) + "] " + message
+            )
             return True
         return False
 
@@ -75,36 +84,37 @@ class Board:
             return False
         return True
 
-    def step(self, square=None, flag=False):
+    def step(self, square=None):
         if self.validCoordinates(square):
             x = square[1]
             y = square[0]
             squareContent = self.boardArray[x][y]
-            if squareContent in [" ", "x"]:
-                stepsDict = {
-                    ("x", False): ('"X"', '"BOOM! - Game Over."'),
-                    ("x", True): ('"#"', '"Square flagged as bomb."'),
-                    (" ", True): ('"*"', '"Square flagged as bomb."'),
-                    (" ", False): (
-                        "str(self.calculateNeighbours((x, y))[0])",
-                        'str(self.calculateNeighbours((x, y))[0]) + " bombs around your square."',
-                    ),
-                }
-                self.boardArray[x][y] = eval(stepsDict[(squareContent, flag)][0])
-                self.setStatus(eval(stepsDict[(squareContent, flag)][1]))
+            if squareContent == "x":
+                self.boardArray[x][y] = "X"
+                self.setStatus(self.statusMessages["lose"])
+                return True
+            elif squareContent == " ":
+                neighBours = self.calculateNeighbours((x, y))
+                self.boardArray[x][y] = str(neighBours[0])
+                self.setStatus(
+                    str(neighBours[0]) + " " + self.statusMessages["uncover"]
+                )
+                self.stepCount += 1
 
-                if not flag and self.boardArray[x][y] != "X":
-                    self.stepCount += 1
-                    self.checkWin()
-                if self.boardArray[x][y] == "0":
-                    for neighbour in self.calculateNeighbours((x, y))[1]:
-                        self.step(neighbour)
+                self.checkWin()
+                self.checkNeighbours(neighBours)
+
                 return True
         return False
 
     def checkWin(self):
         if self.stepCount == (self.size * self.size) - len(self.mines):
-            self.setStatus("the land is cleared! GOOD JOB!")
+            self.setStatus(self.statusMessages["win"])
+
+    def checkNeighbours(self, neighBours):
+        if neighBours[0] == 0:
+            for neighbour in neighBours[1]:
+                self.step(neighbour)
 
     def calculateNeighbours(self, square):
         mines = 0
@@ -120,14 +130,14 @@ class Board:
         return [mines, neighbours]
 
     def flag(self, square):
-        self.step(square, flag=True)
+        if self.validCoordinates(square):
+            x = square[1]
+            y = square[0]
+            squareContent = self.boardArray[x][y]
 
-
-size = 3
-mines = [(2, 2)]
-gameBoard = Board(size, mines)
-gameBoard.step((0, 0))
-print(gameBoard.drawBoard())
-print(
-    "+-+-+-+\n| |1| |\n+-+-+-+\n| |1|1|\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
-)
+            if squareContent in ["x", " "]:
+                translate = {"x": "#", " ": "*"}
+                self.boardArray[x][y] = translate[squareContent]
+                self.setStatus(self.statusMessages["flag"])
+                return True
+        return False
