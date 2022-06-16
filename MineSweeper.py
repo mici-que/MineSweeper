@@ -96,11 +96,23 @@ class Board:
         return str(mines)
 
     def flag(self, square):
-        pass
+        if len([square]) != 1 or not self.validCoordinates(square):
+            return False
+        x = square[1]
+        y = square[0]
+        if self.boardArray[x][y] in ["x", " "]:
+            self.boardArray[x][y] = "*"
+            self.setStatus("Square flagged as bomb.")
 
 
 size = 3
 mines = [(0, 1), (1, 1), (1, 0)]
 gameBoard = Board(size, mines)
 gameBoard.step((0, 0))
+gameBoard.flag((0, 1))
+gameBoard.flag((1, 1))
+gameBoard.flag((1, 0))
 print(gameBoard.drawBoard())
+print(
+    "+-+-+-+\n| | | |\n+-+-+-+\n|*|*| |\n+-+-+-+\n|3|*| |\n+-+-+-+\n[Sandbox 3x3] Square flagged as bomb."
+)

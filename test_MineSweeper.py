@@ -190,7 +190,7 @@ def test_flagSquare():
     gameBoard.step((0, 0))
     gameBoard.flag((0, 1))
     gameBoard.flag((1, 1))
-    gameBoard.flag((0, 1))
+    gameBoard.flag((1, 0))
     assert (
         gameBoard.drawBoard()
         == "+-+-+-+\n| | | |\n+-+-+-+\n|*|*| |\n+-+-+-+\n|3|*| |\n+-+-+-+\n[Sandbox 3x3] Square flagged as bomb."

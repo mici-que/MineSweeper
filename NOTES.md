@@ -126,7 +126,7 @@ fixed __eq__ added test for coverage
 
 - flag covered square: mark with "*"
 - trying to flag uncovered square, nothing should change
-
+🔴 🟢
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿
