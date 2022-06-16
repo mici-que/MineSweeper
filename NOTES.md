@@ -112,7 +112,7 @@ fixed __eq__ added test for coverage
     - calculate number of neighbour mines and add to board
     - draw board and print message
 
-🔴
+🔴 🟢 ♻️
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

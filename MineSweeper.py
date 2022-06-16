@@ -2,11 +2,18 @@ class Board:
     def __init__(self, size, mines):
         self.size = size
         self.mines = mines
-        self.status = "[Sandbox " + str(size) + "x" + str(size) + "] Game created"
+        self.setStatus("Game created")
+        # self.status = "[Sandbox " + str(size) + "x" + str(size) + "] Game created"
         self.boardArray = [
             [" " if (x, y) not in mines else "x" for x in range(size)]
             for y in range(size)
         ]
+
+    def setStatus(self, message):
+        if isinstance(message, str):
+            self.status = "[Sandbox " + str(size) + "x" + str(size) + "] " + message
+            return True
+        return False
 
     def __new__(cls, size=None, mines=None):
         # basic input check check
@@ -74,25 +81,11 @@ class Board:
         y = square[0]
         if self.boardArray[x][y] == "x":
             self.boardArray[x][y] = "X"
-            self.status = (
-                "[Sandbox "
-                + str(self.size)
-                + "x"
-                + str(self.size)
-                + "] BOOM! - Game Over."
-            )
+            self.setStatus("BOOM! - Game Over.")
             return True
         if self.boardArray[x][y] == " ":
             self.boardArray[x][y] = self.calculateNeighbours((x, y))
-            self.status = (
-                "[Sandbox "
-                + str(self.size)
-                + "x"
-                + str(self.size)
-                + "] "
-                + self.boardArray[x][y]
-                + " bombs around your square."
-            )
+            self.setStatus(self.boardArray[x][y] + " bombs around your square.")
             return True
 
     def calculateNeighbours(self, square):
@@ -105,7 +98,7 @@ class Board:
 
 
 size = 3
-mines = [(1, 2)]
+mines = [(0, 1), (1, 1), (1, 0)]
 gameBoard = Board(size, mines)
 gameBoard.step((0, 0))
 print(gameBoard.drawBoard())
