@@ -208,3 +208,24 @@ def test_flagUncoveredSquare():
         gameBoard.drawBoard()
         == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n|3| | |\n+-+-+-+\n[Sandbox 3x3] 3 bombs around your square."
     )
+
+
+### 5. Game Victory – After I cleared the all the squares [2;0 + 2;1 + 2;2 + 1;2 + 1;2]
+def test_clearedAllCells():
+    """all squares without mines uncovered, display win message"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    gameBoard.step((0, 0))
+    gameBoard.flag((0, 1))
+    gameBoard.flag((1, 1))
+    gameBoard.flag((1, 0))
+    gameBoard.step((0, 2))
+    gameBoard.step((1, 2))
+    gameBoard.step((2, 2))
+    gameBoard.step((2, 1))
+    gameBoard.step((2, 0))
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n|2|2|1|\n+-+-+-+\n|*|*|2|\n+-+-+-+\n|3|*|2|\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
+    )

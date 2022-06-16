@@ -126,7 +126,22 @@ fixed __eq__ added test for coverage
 
 - flag covered square: mark with "*"
 - trying to flag uncovered square, nothing should change
-🔴 🟢
+🔴 🟢 ♻️
+
+
+### 5. Game Victory – After I cleared the all the squares [2;0 + 2;1 + 2;2 + 1;2 + 1;2]
++-+-+-+
+|2|2|1|
++-+-+-+
+|*|*|2|
++-+-+-+
+|3|*|2|
++-+-+-+
+[Sandbox 3x3] the land is cleared! GOOD JOB!
+
+- if all squares without  mines are cleared, player won
+
+🔴 
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿
