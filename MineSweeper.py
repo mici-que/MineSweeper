@@ -19,10 +19,9 @@ class Board:
             return False
         # check if all items in mines are actual coordinates on the board
         obj = super().__new__(cls)
-        for mine in mines:
-            if not obj.validCoordinates(mine, size):
-                return False
-        return obj
+        if mines == [mine for mine in mines if obj.validCoordinates(mine, size)]:
+            return obj
+        return False
 
     def drawBoard(self):
         separator = "+" + "-+" * self.size + "\n"
