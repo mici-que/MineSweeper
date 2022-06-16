@@ -114,5 +114,19 @@ fixed __eq__ added test for coverage
 
 🔴 🟢 ♻️
 
+
+## 4. Mark the bombs around – What I expect after I marked the 3 squares as bombs [1;0 + 1;1 + 0;1].+-+-+-+
+| | | |
++-+-+-+
+|*|*| |
++-+-+-+
+|3|*| |
++-+-+-+
+[Sandbox 3x3] Square flagged as bomb.
+
+- flag covered square: mark with "*"
+- trying to flag uncovered square, nothing should change
+
+
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

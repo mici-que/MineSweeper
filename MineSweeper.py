@@ -3,7 +3,6 @@ class Board:
         self.size = size
         self.mines = mines
         self.setStatus("Game created")
-        # self.status = "[Sandbox " + str(size) + "x" + str(size) + "] Game created"
         self.boardArray = [
             [" " if (x, y) not in mines else "x" for x in range(size)]
             for y in range(size)
@@ -95,6 +94,9 @@ class Board:
                 if self.validCoordinates((x, y)) and self.boardArray[x][y] == "x":
                     mines += 1
         return str(mines)
+
+    def flag(self, square):
+        pass
 
 
 size = 3

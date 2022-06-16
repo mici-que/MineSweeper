@@ -179,3 +179,32 @@ def test_stepWrongInput():
     mines = [(0, 1), (1, 1), (1, 0)]
     gameBoard = Board(size, mines)
     assert gameBoard.step((0, 1, 1)) == False
+
+
+## 4 flagging
+def test_flagSquare():
+    """flagged squares (0, 1), (1, 1), (1, 0), should be marked with * on the board"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    gameBoard.step((0, 0))
+    gameBoard.flag((0, 1))
+    gameBoard.flag((1, 1))
+    gameBoard.flag((0, 1))
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n| | | |\n+-+-+-+\n|*|*| |\n+-+-+-+\n|3|*| |\n+-+-+-+\n[Sandbox 3x3] Square flagged as bomb."
+    )
+
+
+def test_flagUncoveredSquare():
+    """trying to flag uncovered square, nothing should change"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    gameBoard.step((0, 0))
+    gameBoard.flag((0, 0))
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n|3| | |\n+-+-+-+\n[Sandbox 3x3] 3 bombs around your square."
+    )
