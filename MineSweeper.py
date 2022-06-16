@@ -118,18 +118,7 @@ class Board:
 
 
 size = 3
-mines = [(0, 1), (1, 1), (1, 0)]
+mines = [(2, 2)]
 gameBoard = Board(size, mines)
-print(gameBoard.drawBoard())
-gameBoard.flag((0, 1))
-print(gameBoard.drawBoard())
-gameBoard.flag((1, 1))
-print(gameBoard.drawBoard())
 gameBoard.step((0, 0))
-print(gameBoard.drawBoard())
-gameBoard.step((0, 2))
-gameBoard.step((1, 2))
-gameBoard.step((2, 2))
-gameBoard.step((2, 1))
-gameBoard.step((2, 0))
 print(gameBoard.drawBoard())

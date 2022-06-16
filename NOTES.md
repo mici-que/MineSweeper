@@ -145,6 +145,19 @@ fixed __eq__ added test for coverage
 🔴 🟢 ♻️
 
 
+### 6. Massive cleaning and victory clicking on 0;0
++-+-+-+
+|_|1| |
++-+-+-+
+|_|1|1|
++-+-+-+
+|_|_|_|
++-+-+-+
+[Sandbox 3x3] the land is cleared! GOOD JOB!
+
+if we step on a cell with no neighbouring mine, step on all neighbours
+invoke step on neighbour cells
+🔴
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

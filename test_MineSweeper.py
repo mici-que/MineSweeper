@@ -229,3 +229,16 @@ def test_clearedAllCells():
         gameBoard.drawBoard()
         == "+-+-+-+\n|2|2|1|\n+-+-+-+\n|*|*|2|\n+-+-+-+\n|3|*|2|\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
     )
+
+
+### 5. Game Victory – After I cleared the all the squares [2;0 + 2;1 + 2;2 + 1;2 + 1;2]
+def test_clearedAllCells():
+    """one-click victory"""
+    size = 3
+    mines = [(2, 2)]
+    gameBoard = Board(size, mines)
+    gameBoard.step((0, 0))
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n| |1| |\n+-+-+-+\n| |1|1|\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
+    )
