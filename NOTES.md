@@ -157,7 +157,7 @@ fixed __eq__ added test for coverage
 
 if we step on a cell with no neighbouring mine, step on all neighbours
 invoke step on neighbour cells
-🔴
+🔴 🟢
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

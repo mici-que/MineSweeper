@@ -240,5 +240,5 @@ def test_clearedAllCells():
     gameBoard.step((0, 0))
     assert (
         gameBoard.drawBoard()
-        == "+-+-+-+\n| |1| |\n+-+-+-+\n| |1|1|\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
+        == "+-+-+-+\n|0|1| |\n+-+-+-+\n|0|1|1|\n+-+-+-+\n|0|0|0|\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
     )

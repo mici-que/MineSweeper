@@ -9,12 +9,6 @@ class Board:
             for y in range(size)
         ]
 
-    def setStatus(self, message):
-        if isinstance(message, str):
-            self.status = "[Sandbox " + str(size) + "x" + str(size) + "] " + message
-            return True
-        return False
-
     def __new__(cls, size=None, mines=None):
         # basic input check check
         if not isinstance(size, int) or size <= 1 or not isinstance(mines, list):
@@ -28,6 +22,26 @@ class Board:
         obj = super().__new__(cls)
         if mines == [mine for mine in mines if obj.validCoordinates(mine, size)]:
             return obj
+        return False
+
+    def __eq__(self, other):
+        return (
+            isinstance(self, object)
+            and isinstance(other, object)
+            and "size" in dir(other)
+            and "mines" in dir(other)
+            and "status" in dir(other)
+            and "boardArray" in dir(other)
+            and int(self.size) == int(other.size)
+            and list(self.mines) == list(other.mines)
+            and str(self.status) == str(other.status)
+            and list(self.boardArray) == list(other.boardArray)
+        )
+
+    def setStatus(self, message):
+        if isinstance(message, str):
+            self.status = "[Sandbox " + str(size) + "x" + str(size) + "] " + message
+            return True
         return False
 
     def drawBoard(self):
@@ -61,20 +75,6 @@ class Board:
             return False
         return True
 
-    def __eq__(self, other):
-        return (
-            isinstance(self, object)
-            and isinstance(other, object)
-            and "size" in dir(other)
-            and "mines" in dir(other)
-            and "status" in dir(other)
-            and "boardArray" in dir(other)
-            and int(self.size) == int(other.size)
-            and list(self.mines) == list(other.mines)
-            and str(self.status) == str(other.status)
-            and list(self.boardArray) == list(other.boardArray)
-        )
-
     def step(self, square=None, flag=False):
         if self.validCoordinates(square):
             x = square[1]
@@ -86,15 +86,19 @@ class Board:
                     ("x", True): ('"#"', '"Square flagged as bomb."'),
                     (" ", True): ('"*"', '"Square flagged as bomb."'),
                     (" ", False): (
-                        "self.calculateNeighbours((x, y))",
-                        'self.calculateNeighbours((x, y)) + " bombs around your square."',
+                        "str(self.calculateNeighbours((x, y))[0])",
+                        'str(self.calculateNeighbours((x, y))[0]) + " bombs around your square."',
                     ),
                 }
                 self.boardArray[x][y] = eval(stepsDict[(squareContent, flag)][0])
                 self.setStatus(eval(stepsDict[(squareContent, flag)][1]))
+
                 if not flag and self.boardArray[x][y] != "X":
                     self.stepCount += 1
                     self.checkWin()
+                if self.boardArray[x][y] == "0":
+                    for neighbour in self.calculateNeighbours((x, y))[1]:
+                        self.step(neighbour)
                 return True
         return False
 
@@ -104,14 +108,16 @@ class Board:
 
     def calculateNeighbours(self, square):
         mines = 0
-        for x in range(square[0] - 1, square[0] + 2):
-            for y in range(square[1] - 1, square[1] + 2):
-                if self.validCoordinates((x, y)) and self.boardArray[x][y] in [
-                    "x",
-                    "#",
-                ]:
-                    mines += 1
-        return str(mines)
+        neighbours = [
+            (x, y)
+            for x in range(square[0] - 1, square[0] + 2)
+            for y in range(square[1] - 1, square[1] + 2)
+            if self.validCoordinates((x, y))
+        ]
+        for square in neighbours:
+            if self.boardArray[square[0]][square[1]] in ["x", "#"]:
+                mines += 1
+        return [mines, neighbours]
 
     def flag(self, square):
         self.step(square, flag=True)
@@ -122,3 +128,6 @@ mines = [(2, 2)]
 gameBoard = Board(size, mines)
 gameBoard.step((0, 0))
 print(gameBoard.drawBoard())
+print(
+    "+-+-+-+\n| |1| |\n+-+-+-+\n| |1|1|\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] the land is cleared! GOOD JOB!"
+)
