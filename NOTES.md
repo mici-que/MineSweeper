@@ -92,8 +92,27 @@ fixed __eq__ added test for coverage
 ( - exit ) => introduce gameplay in next cycle
 
 
-🔴 🟢 ♻️
+🔴 🟢 ♻️ ♻️
 
+
+## 3. Clean square 0;0 and get the number of bombs around
++-+-+-+
+| | | |
++-+-+-+
+| | | |
++-+-+-+
+|3| | |
++-+-+-+
+[Sandbox 3x3] 3 bombs around your square.
+
+- board to be tested: size=3, mine coordinates (0,1),(1,1),(1,0)
+
+- implement step and calculate:
+  - if square value is " "
+    - calculate number of neighbour mines and add to board
+    - draw board and print message
+
+🔴
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿

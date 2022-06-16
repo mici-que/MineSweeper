@@ -115,7 +115,6 @@ def test_eqFalse2():
 
 
 ## 2 step and lose
-
 size = 3
 mines = [(1, 1)]
 gameBoard = Board(size, mines)
@@ -138,3 +137,49 @@ def test_stepOnBombOutput():
         gameBoard.drawBoard()
         == "+-+-+-+\n| | | |\n+-+-+-+\n| |X| |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] BOOM! - Game Over."
     )
+
+
+## 3 step and calculate
+
+
+def test_stepAndCalc():
+    """it's a valid step, return True"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    assert gameBoard.step((0, 0)) == True
+
+
+def test_stepAndCalcOutput():
+    """we have stepped on 0,0 , should this square showing 3"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    gameBoard.step((0, 0))
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n| | | |\n+-+-+-+\n| | | |\n+-+-+-+\n|3| | |\n+-+-+-+\n[Sandbox 3x3] 3 bombs around your square."
+    )
+
+
+def test_stepOnBombInstead():
+    """step on 0,1 => show bomb and loose"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    gameBoard.step((0, 1))
+    assert (
+        gameBoard.drawBoard()
+        == "+-+-+-+\n| | | |\n+-+-+-+\n|X| | |\n+-+-+-+\n| | | |\n+-+-+-+\n[Sandbox 3x3] BOOM! - Game Over."
+    )
+
+
+test_stepOnBombInstead()
+
+# additional test to improve coverage, test when step input tuple is faulty
+def test_stepWrongInput():
+    """step input is wrong, return False"""
+    size = 3
+    mines = [(0, 1), (1, 1), (1, 0)]
+    gameBoard = Board(size, mines)
+    assert gameBoard.step((0, 1, 1)) == False

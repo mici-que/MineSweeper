@@ -68,13 +68,12 @@ class Board:
         )
 
     def step(self, square=None):
-
         if len([square]) != 1:
             return False
         if not self.validCoordinates(square):
             return False
-        if self.boardArray[square[0]][square[1]] == "x":
-            self.boardArray[square[0]][square[1]] = "X"
+        if self.boardArray[square[1]][square[0]] == "x":
+            self.boardArray[square[1]][square[0]] = "X"
             self.status = (
                 "[Sandbox "
                 + str(self.size)
@@ -83,8 +82,3 @@ class Board:
                 + "] BOOM! - Game Over."
             )
             return True
-
-
-thisBoard = Board(3, [(1, 1)])
-thisBoard.step((1, 1))
-print(thisBoard.drawBoard())
