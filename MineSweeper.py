@@ -1,5 +1,6 @@
 class Board:
     def __init__(self, size, mines):
+        self.stepCount = 0
         self.size = size
         self.mines = mines
         self.setStatus("Game created")
@@ -30,15 +31,16 @@ class Board:
         return False
 
     def drawBoard(self):
+        translate = {"x": " ", "#": "*"}
         separator = "+" + "-+" * self.size + "\n"
         boardString = separator
         for x in range(self.size - 1, -1, -1):
             for y in range(self.size):
-                boardString += "|" + (
-                    " "
-                    if self.boardArray[x][y] in (" ", "x")
-                    else self.boardArray[x][y]
-                )
+                boardString += "|"
+                if self.boardArray[x][y] in translate.keys():
+                    boardString += translate[self.boardArray[x][y]]
+                else:
+                    boardString += self.boardArray[x][y]
             boardString += "|\n"
             boardString += separator
         boardString += self.status
@@ -74,14 +76,14 @@ class Board:
         )
 
     def step(self, square=None, flag=False):
-        if len([square]) == 1 and self.validCoordinates(square):
+        if self.validCoordinates(square):
             x = square[1]
             y = square[0]
             squareContent = self.boardArray[x][y]
             if squareContent in [" ", "x"]:
                 stepsDict = {
                     ("x", False): ('"X"', '"BOOM! - Game Over."'),
-                    ("x", True): ('"*"', '"Square flagged as bomb."'),
+                    ("x", True): ('"#"', '"Square flagged as bomb."'),
                     (" ", True): ('"*"', '"Square flagged as bomb."'),
                     (" ", False): (
                         "self.calculateNeighbours((x, y))",
@@ -90,14 +92,24 @@ class Board:
                 }
                 self.boardArray[x][y] = eval(stepsDict[(squareContent, flag)][0])
                 self.setStatus(eval(stepsDict[(squareContent, flag)][1]))
+                if not flag and self.boardArray[x][y] != "X":
+                    self.stepCount += 1
+                    self.checkWin()
                 return True
         return False
+
+    def checkWin(self):
+        if self.stepCount == (self.size * self.size) - len(self.mines):
+            self.setStatus("the land is cleared! GOOD JOB!")
 
     def calculateNeighbours(self, square):
         mines = 0
         for x in range(square[0] - 1, square[0] + 2):
             for y in range(square[1] - 1, square[1] + 2):
-                if self.validCoordinates((x, y)) and self.boardArray[x][y] == "x":
+                if self.validCoordinates((x, y)) and self.boardArray[x][y] in [
+                    "x",
+                    "#",
+                ]:
                     mines += 1
         return str(mines)
 
@@ -109,11 +121,15 @@ size = 3
 mines = [(0, 1), (1, 1), (1, 0)]
 gameBoard = Board(size, mines)
 print(gameBoard.drawBoard())
-gameBoard.step((0, 0))
-print(gameBoard.drawBoard())
 gameBoard.flag((0, 1))
 print(gameBoard.drawBoard())
 gameBoard.flag((1, 1))
 print(gameBoard.drawBoard())
-gameBoard.flag((1, 0))
+gameBoard.step((0, 0))
+print(gameBoard.drawBoard())
+gameBoard.step((0, 2))
+gameBoard.step((1, 2))
+gameBoard.step((2, 2))
+gameBoard.step((2, 1))
+gameBoard.step((2, 0))
 print(gameBoard.drawBoard())

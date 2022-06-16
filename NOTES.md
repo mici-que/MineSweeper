@@ -140,8 +140,11 @@ fixed __eq__ added test for coverage
 [Sandbox 3x3] the land is cleared! GOOD JOB!
 
 - if all squares without  mines are cleared, player won
+- need to have an additional character for the flagged bombs, so we can count them
 
-🔴 
+🔴 🟢 ♻️
+
+
 
 ***
 ✅ 🍅 🔴 🟢 ♻️ 💿
